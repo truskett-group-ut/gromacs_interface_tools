@@ -1,0 +1,12 @@
+{
+    "dep__rho_p": 6.0, 
+    "dep__d_p": 0.6, 
+    "elec__z": 2.0, 
+    "wca__d": 1.0, 
+    "wca__max_ur": 1000000.0, 
+    "wca__alpha": 6.0, 
+    "wca__epsilon": 1.0, 
+    "dep__d": 1.0, 
+    "dep__w": 50.0, 
+    "elec__A": 1.0
+}

@@ -18,13 +18,13 @@ class SimulationPotentialConverter:
     #creates a tabulated version of the potential (and forces)
     def TabulatePotential(self, r_table_max=20.0, dr=0.005):
         self.r = arange(0.0, r_table_max, dr)
-        self.ur = array([self.ur_(x) for x in self.r])
-        self.dur = array([self.dur_(x) for x in self.r])
+        self.ur = self.ur_(self.r) #array([self.ur_(x) for x in self.r])
+        self.dur = self.dur_(self.r) #array([self.dur_(x) for x in self.r])
         self.num_pts = len(self.r)
         return None
     
     #optional cut and shift of potential according to the forces
-    def CutShiftTabulated(self, e_max=0.01, f_max=0.01, r_max=8.0, shift=False):
+    def CutShiftTabulated(self, e_max=0.1, f_max=0.01, r_max=8.0, shift=False):
         #identify an acceptable cut point
         for i in range(self.num_pts-1, -1, -1):
             if abs(self.dur[i]) > f_max:

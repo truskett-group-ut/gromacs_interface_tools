@@ -1,0 +1,47 @@
+{
+    "state": {
+        "dep__rho_p": {
+            "opt": true, 
+            "max": 6.0, 
+            "min": 0.0
+        }, 
+        "dep__d_p": {
+            "opt": true, 
+            "max": 1.0, 
+            "min": 0.0
+        }, 
+        "elec__z": {
+            "opt": true, 
+            "max": 6.0, 
+            "min": 0.0
+        }, 
+        "wca__d": {
+            "opt": false
+        }, 
+        "wca__max_ur": {
+            "opt": false
+        }, 
+        "wca__alpha": {
+            "opt": false
+        }, 
+        "wca__epsilon": {
+            "opt": true, 
+            "min": 0.2
+        }, 
+        "dep__d": {
+            "opt": false
+        }, 
+        "dep__w": {
+            "opt": false
+        }, 
+        "elec__A": {
+            "opt": true, 
+            "min": 0.0
+        }
+    }, 
+    "specs": {
+        "wca": "weeks_chandler_anderson", 
+        "dep": "depletion", 
+        "elec": "electrostatic_dlvo"
+    }
+}
