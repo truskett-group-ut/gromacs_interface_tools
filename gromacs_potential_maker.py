@@ -16,19 +16,21 @@ class SimulationPotentialConverter:
         return None
     
     #creates a tabulated version of the potential (and forces)
-    def TabulatePotential(self, r_table_max=20.0, dr=0.005):
-        self.r = arange(0.0, r_table_max, dr)
+    def TabulatePotential(self, r_max, dr):
+        self.r = arange(0.0, r_max+dr/2.0, dr)
         self.ur = self.ur_(self.r) #array([self.ur_(x) for x in self.r])
         self.dur = self.dur_(self.r) #array([self.dur_(x) for x in self.r])
         self.num_pts = len(self.r)
         return None
     
     #optional cut and shift of potential according to the forces
-    def CutShiftTabulated(self, e_max=0.1, f_max=0.01, r_max=8.0, shift=False):
+    def CutShiftTabulated(self, e_max, f_max, r_max, shift):
         #identify an acceptable cut point
         for i in range(self.num_pts-1, -1, -1):
             if abs(self.dur[i]) > f_max:
                 i_cut = i + 1
+                if i_cut > self.num_pts-1:
+                    raise Exception('Potential is not decaying fast enough to meet force cut (f_max) criterion over specified range (r_max). Please try to increase "simulation.gromacs.table.r_max" in settings file.')
                 break
         self.r_cut = self.r[i_cut]
         #error check
@@ -44,7 +46,7 @@ class SimulationPotentialConverter:
         return None
     
     #make the table file with proper format
-    def MakeTable(self, filename='./table.xvg'):
+    def MakeTable(self, filename):
         #error check
         if self.r_cut is None:
             raise AttributeError('Potential cutoff was not properly set before writing table file.')
@@ -56,7 +58,7 @@ class SimulationPotentialConverter:
         return None
     
     #replace the r_cut value
-    def InsertGromppCutoff(self, r_buffer=0.5, filename='./grompp.mdp'):
+    def InsertGromppCutoff(self, r_buffer, filename):
         #error check
         if self.r_cut is None:
             raise AttributeError('Potential cutoff was not properly set before writing grompp file.')
